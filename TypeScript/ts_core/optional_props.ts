@@ -24,8 +24,8 @@ type Product = {
   discount?: number;
 };
 
-const p1={id:1,name:'laptop'}
-const p2={id:2,name:'mobile',discount:10}
+const p1:Product={id:1,name:'laptop'}
+const p2:Product={id:2,name:'mobile',discount:10}
 
 
 function greet(name: string, message?: string) {
@@ -37,3 +37,7 @@ function greet(name: string, message?: string) {
 }
 greet("Ramya");
 greet("Ramya", "Welcome");
+
+
+
+export {};
