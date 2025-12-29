@@ -36,7 +36,7 @@ export class ProductsController {
     @ApiParam({name: 'id',description: 'Product ID',example: 1})
     @ApiResponse({status: 200,description: 'Product updated successfully',})
     @ApiResponse({status: 404,description: 'Product not found',})
-    @ApiResponse({status: 400,description: 'No fields provided to update',})
+    @ApiResponse({status: 400,description: 'No fields provided to update'})
     @Patch(':id')
     UpdateProduct(@Param('id') id:string,@Body() data:UpdateProductDto){
     return this.productService.patch(Number(id),data);
