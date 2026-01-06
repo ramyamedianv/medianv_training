@@ -1,0 +1,40 @@
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { TodoModule } from './todo/todo.module';
+import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { Todo } from './todo/entities/todo.entity';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports:[ConfigModule],
+      inject:[ConfigService],
+      useFactory:(configService:ConfigService)=>({
+        type:'postgres',
+        host:configService.get('DB_HOST'),
+        port:configService.get('DB_PORT'),
+        username:configService.get('DB_USERNAME'),
+        password:configService.get('DB_PASS'),
+        database:configService.get('DB_DATABASE'),
+        entities:[User,Todo],
+        synchronize:true
+      })
+    }),
+    UserModule,
+    TodoModule,
+    AuthModule,
+
+    ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+
+
+export class AppModule {}
+
